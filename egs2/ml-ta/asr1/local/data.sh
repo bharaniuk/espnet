@@ -55,8 +55,6 @@ if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
 
     wget https://www.openslr.org/resources/65/line_index_female.tsv
     wget https://www.openslr.org/resources/65/line_index_male.tsv
-#    iconv -f utf-8 -t utf-8 -c line_index_male.tsv -o new_line_index_male.tsv
-#    iconv -f utf-8 -t utf-8 -c line_index_female.tsv -o new_line_index_female.tsv
     iconv -c -t UTF-8 < line_index_male.tsv > new_line_index_male.tsv
     iconv -c -t UTF-8 < line_index_female.tsv > new_line_index_female.tsv
     cat new_line_index_female.tsv new_line_index_male.tsv > line_index_all.tsv
