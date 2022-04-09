@@ -52,6 +52,7 @@ if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
     unzip -o ta_in_male.zip
     rm -f ta_in_male.zip
     rm -f tag_01424_01843292347.wav
+    rm -f taf_02330_01989228272.wav
 
     wget https://www.openslr.org/resources/63/line_index_female.tsv
     wget https://www.openslr.org/resources/63/line_index_male.tsv
@@ -60,6 +61,7 @@ if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
     rm -f line_index_male.tsv
     wget https://www.openslr.org/resources/65/line_index_female.tsv
     wget https://www.openslr.org/resources/65/line_index_male.tsv
+    sed -i '/tag_01424_01843292347/d' ./line_index_male.tsv
     sed -i '/tag_01424_01843292347/d' ./line_index_male.tsv
     cat line_index_female.tsv line_index_male.tsv >> line_index_all.tsv
     cd $workspace
