@@ -16,6 +16,9 @@ lm_config=conf/train_lm.yaml
 ./asr.sh \
     --ngpu 1 \
     --lang "ml" \
+    --nj 32 \
+    --stage 1 \
+    --stop_stage 13 \
     --use_lm true \
     --lm_config "${lm_config}" \
     --token_type bpe \
