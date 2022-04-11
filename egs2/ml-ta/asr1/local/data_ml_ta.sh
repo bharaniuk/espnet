@@ -28,6 +28,10 @@ set -o pipefail
 log "data preparation started"
 
 mkdir -p ${MALAYALAM}
+if [ -z "${MALAYALAM}" ]; then
+    log "Fill the value of 'MALAYALAM' of db.sh"
+    exit 1
+fi
 
 workspace=$PWD
 
@@ -41,10 +45,29 @@ if [ ${stage} -le 0 ] && [ ${stop_stage} -ge 0 ]; then
     wget https://www.openslr.org/resources/63/ml_in_male.zip
     unzip -o ml_in_male.zip
     rm -f ml_in_male.zip
+    wget https://www.openslr.org/resources/65/ta_in_female.zip
+    unzip -o ta_in_female.zip
+    rm -f ta_in_female.zip
+    wget https://www.openslr.org/resources/65/ta_in_male.zip
+    unzip -o ta_in_male.zip
+    rm -f ta_in_male.zip
+    rm -f tag_01424_01843292347.wav
+    rm -f taf_02330_01989228272.wav
+    rm -f tag_03762_01642809597.wav
+    rm -f taf_06478_02041764997.wav
 
     wget https://www.openslr.org/resources/63/line_index_female.tsv
     wget https://www.openslr.org/resources/63/line_index_male.tsv
     cat line_index_female.tsv line_index_male.tsv > line_index_all.tsv
+    rm -f line_index_female.tsv
+    rm -f line_index_male.tsv
+    wget https://www.openslr.org/resources/65/line_index_female.tsv
+    wget https://www.openslr.org/resources/65/line_index_male.tsv
+    sed -i '/tag_01424_01843292347/d' ./line_index_male.tsv
+    sed -i '/taf_02330_01989228272/d' ./line_index_female.tsv
+    sed -i '/tag_03762_01642809597/d' ./line_index_male.tsv
+    sed -i '/taf_06478_02041764997/d' ./line_index_female.tsv
+    cat line_index_female.tsv line_index_male.tsv >> line_index_all.tsv
     cd $workspace
 fi
 
